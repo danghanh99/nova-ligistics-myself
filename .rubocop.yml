@@ -1,0 +1,22 @@
+inherit_from:
+  - ./config/rubocop/layout.yml
+  - ./config/rubocop/lint.yml
+  - ./config/rubocop/metrics.yml
+  - ./config/rubocop/performance.yml
+  - ./config/rubocop/style.yml
+
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - '**/*.yml'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'doc/**/*'
+    - 'bin/**/*'
+    - 'test/**/*'
+    - 'vendor/bundle/**/*'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'public/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'

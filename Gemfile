@@ -30,6 +30,10 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework
   gem 'rspec-rails', '~> 4.0.0'
+  # RuboCop is a Ruby static code analyzer and code formatter
+  gem 'rubocop'
+  # Performance optimization analysis for your projects
+  gem 'rubocop-performance', require: false
 end
 
 group :development do
