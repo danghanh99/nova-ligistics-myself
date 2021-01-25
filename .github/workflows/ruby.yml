@@ -11,7 +11,7 @@ jobs:
       db:
         image: postgres:12
         env:
-          POSTGRES_USER: admin_helper_user
+          POSTGRES_USER: nova_logistics
           POSTGRES_PASSWORD: 123
         ports: ['5432:5432']
         options: >-
