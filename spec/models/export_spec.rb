@@ -5,7 +5,7 @@ RSpec.describe Export, type: :model do
     it { should respond_to(:sell_price) }
     it { should allow_value(123).for(:sell_price) }
     it { should_not allow_value(-123).for(:sell_price) }
-    it { should_not allow_value(0).for(:sell_price) }
+    it { should allow_value(0).for(:sell_price) }
     it 'should presence' do
       should validate_presence_of(:sell_price)
     end
@@ -15,7 +15,7 @@ RSpec.describe Export, type: :model do
     it { should respond_to(:quantity) }
     it { should allow_value(123).for(:quantity) }
     it { should_not allow_value(-123).for(:quantity) }
-    it { should_not allow_value(0).for(:quantity) }
+    it { should allow_value(0).for(:quantity) }
     it 'should presence' do
       should validate_presence_of(:quantity)
     end

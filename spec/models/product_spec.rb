@@ -7,8 +7,8 @@ RSpec.describe Product, type: :model do
     it { should_not allow_value(' ').for(:name) }
     it { should_not allow_value(nil).for(:name) }
     it { should_not allow_value('a').for(:name) }
-    it 'should be greater or equal 2 and less than or equal 20' do
-      should validate_length_of(:name).is_at_least(2).is_at_most(40)
+    it 'should be greater or equal 2 and less than or equal 255' do
+      should validate_length_of(:name).is_at_least(2).is_at_most(255)
     end
     it 'should presence' do
       should validate_presence_of(:name)
