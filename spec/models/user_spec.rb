@@ -33,4 +33,13 @@ RSpec.describe User, type: :model do
     it { should allow_value(nil).for(:phone) }
     it { should validate_uniqueness_of(:phone) }
   end
+
+  describe 'encrypt password' do
+    let!(:password) { '123456' }
+    let!(:password_salt) { BCrypt::Engine.generate_salt }
+    it 'should after encoding when encoding with original ' do
+      encrypted_password = User.generate_encrypted_password(password, password_salt)
+      expect(encrypted_password).to eq(User.generate_encrypted_password('123456', encrypted_password.first(29)))
+    end
+  end
 end
