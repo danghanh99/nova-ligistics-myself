@@ -34,4 +34,8 @@ RSpec.describe Suplier, type: :model do
     it { should respond_to(:notes) }
     it { should allow_value('notes').for(:notes) }
   end
+
+  describe Suplier do
+    it { should have_many(:imports) }
+  end
 end

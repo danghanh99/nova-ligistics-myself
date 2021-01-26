@@ -13,4 +13,8 @@ RSpec.describe Inventory, type: :model do
     it { should allow_value(' ').for(:address) }
     it { should allow_value(nil).for(:address) }
   end
+
+  describe Inventory do
+    it { should have_many(:imports) }
+  end
 end

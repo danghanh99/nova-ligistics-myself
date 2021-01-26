@@ -16,4 +16,8 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('email@domain').for(:email) }
     it { should_not allow_value('email@111.222.333.44444').for(:email) }
   end
+
+  describe User do
+    it { should have_many(:imports) }
+  end
 end

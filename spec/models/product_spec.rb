@@ -30,4 +30,8 @@ RSpec.describe Product, type: :model do
     it { should allow_value(nil).for(:sku) }
     it { should validate_uniqueness_of(:sku) }
   end
+
+  describe Product do
+    it { should have_many(:imports) }
+  end
 end
