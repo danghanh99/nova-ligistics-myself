@@ -16,5 +16,6 @@ RSpec.describe Inventory, type: :model do
 
   describe Inventory do
     it { should have_many(:imports) }
+    it { should have_many(:exports) }
   end
 end

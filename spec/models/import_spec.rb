@@ -26,5 +26,6 @@ RSpec.describe Import, type: :model do
     it { should belong_to(:user) }
     it { should belong_to(:inventory) }
     it { should belong_to(:product) }
+    it { should have_many(:exports) }
   end
 end

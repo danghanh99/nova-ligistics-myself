@@ -19,5 +19,6 @@ RSpec.describe User, type: :model do
 
   describe User do
     it { should have_many(:imports) }
+    it { should have_many(:exports) }
   end
 end

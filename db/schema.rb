@@ -10,16 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_081919) do
+ActiveRecord::Schema.define(version: 2021_01_26_084012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exports", force: :cascade do |t|
+    t.integer "sell_price"
+    t.integer "quantity"
+    t.string "notes"
+    t.date "date_export"
+    t.bigint "user_id"
+    t.bigint "import_id"
+    t.bigint "inventory_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["import_id"], name: "index_exports_on_import_id"
+    t.index ["inventory_id"], name: "index_exports_on_inventory_id"
+    t.index ["user_id"], name: "index_exports_on_user_id"
+  end
 
   create_table "imports", force: :cascade do |t|
     t.integer "retail_price"
     t.integer "quantity"
     t.string "notes"
-    t.date "date_input"
+    t.date "date_import"
     t.bigint "user_id"
     t.bigint "inventory_id"
     t.bigint "product_id"
@@ -63,8 +78,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_081919) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "exports", "imports"
   add_foreign_key "imports", "inventories"
   add_foreign_key "imports", "products"
-  add_foreign_key "imports", "supliers"
-  add_foreign_key "imports", "users"
 end
