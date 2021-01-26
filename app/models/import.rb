@@ -1,6 +1,6 @@
 class Import < ApplicationRecord
   belongs_to :user
-  belongs_to :suplier
+  belongs_to :supplier
   belongs_to :inventory
   belongs_to :product
   has_many :exports, dependent: :destroy

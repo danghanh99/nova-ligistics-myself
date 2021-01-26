@@ -22,7 +22,7 @@ RSpec.describe Import, type: :model do
   end
 
   describe Import do
-    it { should belong_to(:suplier) }
+    it { should belong_to(:supplier) }
     it { should belong_to(:user) }
     it { should belong_to(:inventory) }
     it { should belong_to(:product) }

@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2021_01_26_084012) do
   create_table "exports", force: :cascade do |t|
     t.integer "sell_price"
     t.integer "quantity"
-    t.string "notes"
-    t.date "date_export"
+    t.string "description"
+    t.date "exported_date"
     t.bigint "user_id"
     t.bigint "import_id"
     t.bigint "inventory_id"
@@ -33,23 +33,24 @@ ActiveRecord::Schema.define(version: 2021_01_26_084012) do
   create_table "imports", force: :cascade do |t|
     t.integer "retail_price"
     t.integer "quantity"
-    t.string "notes"
-    t.date "date_import"
+    t.string "description"
+    t.date "imported_date"
     t.bigint "user_id"
     t.bigint "inventory_id"
     t.bigint "product_id"
-    t.bigint "suplier_id"
+    t.bigint "supplier_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["inventory_id"], name: "index_imports_on_inventory_id"
     t.index ["product_id"], name: "index_imports_on_product_id"
-    t.index ["suplier_id"], name: "index_imports_on_suplier_id"
+    t.index ["supplier_id"], name: "index_imports_on_supplier_id"
     t.index ["user_id"], name: "index_imports_on_user_id"
   end
 
   create_table "inventories", force: :cascade do |t|
     t.string "name"
     t.string "address"
+    t.string "description"
   end
 
   create_table "products", force: :cascade do |t|
@@ -60,11 +61,11 @@ ActiveRecord::Schema.define(version: 2021_01_26_084012) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "supliers", force: :cascade do |t|
+  create_table "suppliers", force: :cascade do |t|
     t.string "name"
     t.string "phone"
     t.string "address"
-    t.string "notes"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Suplier, type: :model do
+RSpec.describe Supplier, type: :model do
   describe 'name' do
     it { should respond_to(:name) }
-    it { should allow_value('Suplier').for(:name) }
+    it { should allow_value('Supplier').for(:name) }
     it { should_not allow_value(' ').for(:name) }
     it { should_not allow_value(nil).for(:name) }
     it { should_not allow_value('a').for(:name) }
@@ -30,12 +30,12 @@ RSpec.describe Suplier, type: :model do
     it { should allow_value('address').for(:address) }
   end
 
-  describe 'notes' do
-    it { should respond_to(:notes) }
-    it { should allow_value('notes').for(:notes) }
+  describe 'description' do
+    it { should respond_to(:description) }
+    it { should allow_value('description').for(:description) }
   end
 
-  describe Suplier do
+  describe Supplier do
     it { should have_many(:imports) }
   end
 end

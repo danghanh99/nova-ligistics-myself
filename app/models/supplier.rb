@@ -1,4 +1,4 @@
-class Suplier < ApplicationRecord
+class Supplier < ApplicationRecord
   has_many :imports, dependent: :destroy
   VALID_PHONE_NUMBER_REGEX = /\d[0-9]\)*\z/.freeze
   validates :name, presence: true, length: { in: 2..40 }

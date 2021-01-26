@@ -1,10 +1,10 @@
-class CreateSupliers < ActiveRecord::Migration[6.1]
+class CreateSuppliers < ActiveRecord::Migration[6.1]
   def change
-    create_table :supliers do |t|
+    create_table :suppliers do |t|
       t.string :name
       t.string :phone
       t.string :address
-      t.string :notes
+      t.string :description
 
       t.timestamps
     end
