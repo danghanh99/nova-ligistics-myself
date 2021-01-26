@@ -26,14 +26,18 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # gem 'rack-cors'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw 64_mingw]
+  # Adds step-by-step debugging and stack navigation capabilities to pry using byebug.
+  gem 'pry-byebug'
   # Brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework
   gem 'rspec-rails', '~> 4.0.0'
   # RuboCop is a Ruby static code analyzer and code formatter
   gem 'rubocop'
   # Performance optimization analysis for your projects
   gem 'rubocop-performance', require: false
+  # Helps you write more understandable, maintainable Rails-specific tests under Minitest.
+  gem 'shoulda', '~> 3.5'
+  # Provides RSpec- and Minitest-compatible one-liners to test common Rails functionality that, if written by hand, would be much longer, more complex, and error-prone.
+  gem 'shoulda-matchers', '~> 2.0'
 end
 
 group :development do
