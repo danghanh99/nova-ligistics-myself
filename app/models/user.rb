@@ -22,4 +22,14 @@ class User < ApplicationRecord
   def self.generate_encrypted_password(password, password_salt = BCrypt::Engine.generate_salt)
     BCrypt::Engine.hash_secret(password, password_salt)
   end
+
+  def check_valid_password(password)
+    encrypted_password == User.generate_encrypted_password(password, encrypted_password.first(29))
+  end
+
+  def jwt_payload
+    {
+      user_id: id
+    }
+  end
 end
