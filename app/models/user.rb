@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :exports, dependent: :destroy
   attr_accessor :password
 
+  SALT_POSITION_IN_PASSWORD = 29
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   PASSWORD_FORMAT = /\A(?!.*\s)/x.freeze
   validates :email, presence: true, length: { maximum: 255 },
@@ -24,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def check_valid_password(password)
-    encrypted_password == User.generate_encrypted_password(password, encrypted_password.first(29))
+    encrypted_password == User.generate_encrypted_password(password, encrypted_password.first(SALT_POSITION_IN_PASSWORD))
   end
 
   def jwt_payload
