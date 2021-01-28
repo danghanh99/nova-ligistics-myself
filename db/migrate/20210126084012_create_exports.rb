@@ -7,8 +7,8 @@ class CreateExports < ActiveRecord::Migration[6.1]
       t.date :exported_date
       t.references :user, index: true, foreign_key: false
       t.references :import, index: true, foreign_key: true
-      t.references :inventory, index: true, foreign_key: false
-
+      t.references :inventory, index: true, foreign_key: false  
+      
       t.timestamps
     end
   end
