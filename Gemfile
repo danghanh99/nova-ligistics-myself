@@ -19,7 +19,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # Brings convention over configuration to your JSON generation.
 gem 'active_model_serializers'
-
+# Use pagination
+gem 'kaminari-activerecord'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 # Create fake data

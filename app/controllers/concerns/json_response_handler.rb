@@ -5,4 +5,8 @@ module JsonResponseHandler
       message: message
     }, status: status_code_symbol
   end
+
+  def render_collection(list)
+    render json: list, root: 'data', meta: pagination_dict(list)
+  end
 end
