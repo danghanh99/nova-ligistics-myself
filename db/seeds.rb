@@ -1,7 +1,7 @@
 # Default User
-admin = User.create_with(
+User.create_with(
   email: "admin@novahub.vn",
-  encrypted_password: "123456",
+  password: "123456",
   name: "admin",
   phone: "0905010203",
   address: '10B Nguyen Chi Thanh'

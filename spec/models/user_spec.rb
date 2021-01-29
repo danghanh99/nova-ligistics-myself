@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('email@gmail.com (Joe Smith)').for(:email) }
     it { should_not allow_value('email@domain').for(:email) }
     it { should_not allow_value('email@111.222.333.44444').for(:email) }
-    it { should validate_uniqueness_of(:email) }
+    it { should validate_uniqueness_of(:email).case_insensitive }
   end
 
   describe User do
@@ -31,6 +31,15 @@ RSpec.describe User, type: :model do
       should validate_length_of(:phone).is_at_most(25)
     end
     it { should allow_value(nil).for(:phone) }
-    it { should validate_uniqueness_of(:phone) }
+    it { should validate_uniqueness_of(:phone).case_insensitive }
+  end
+
+  describe 'encrypt password' do
+    let!(:password) { '123456' }
+    let!(:password_salt) { BCrypt::Engine.generate_salt }
+    it 'should after encoding when encoding with original ' do
+      encrypted_password = User.generate_encrypted_password(password, password_salt)
+      expect(encrypted_password).to eq(User.generate_encrypted_password('123456', encrypted_password.first(29)))
+    end
   end
 end
