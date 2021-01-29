@@ -26,7 +26,7 @@ paths:
             type: string
             example: 'Nova@123'
       responses:
-        '200':
+        201:
           description: Will send `Authenticated`
           content:
             appclication/json:
@@ -37,7 +37,7 @@ paths:
                     type: string
                   user:
                     $ref: '#/components/schemas/User'
-        '400':
+        400:
           $ref: '#/components/responses/BadRequest'
 components:
   responses:
