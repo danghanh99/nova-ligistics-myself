@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.1'
@@ -29,15 +29,15 @@ group :development, :test do
   # Adds step-by-step debugging and stack navigation capabilities to pry using byebug.
   gem 'pry-byebug'
   # Brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails'
   # RuboCop is a Ruby static code analyzer and code formatter
   gem 'rubocop'
   # Performance optimization analysis for your projects
   gem 'rubocop-performance', require: false
   # Helps you write more understandable, maintainable Rails-specific tests under Minitest.
-  gem 'shoulda', '~> 3.5'
+  gem 'shoulda'
   # Provides RSpec- and Minitest-compatible one-liners to test common Rails functionality that, if written by hand, would be much longer, more complex, and error-prone.
-  gem 'shoulda-matchers', '~> 2.0'
+  gem 'shoulda-matchers'
 end
 
 group :development do
