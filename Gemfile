@@ -17,10 +17,15 @@ gem 'puma', '~> 5.0'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# Use to create tokens with high security and security, avoiding theft between different systems
+gem 'jwt'
+# Brings convention over configuration to your JSON generation.
+gem 'active_model_serializers'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+# Create fake data
+gem 'ffaker'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -28,6 +33,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # gem 'rack-cors'
 
 group :development, :test do
+  # Create object for Uni-test
+  gem 'factory_bot_rails'
   # Adds step-by-step debugging and stack navigation capabilities to pry using byebug.
   gem 'pry-byebug'
   # Brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework
