@@ -26,4 +26,8 @@ module JsonResponseHandler
   def render_resources(objs, status_code_symbol, serializer_class = nil)
     serializer_class.nil? ? (render json: objs, status: status_code_symbol) : (render json: objs, each_serializer: serializer_class, status: status_code_symbol)
   end
+
+  def render_collection(list)
+    render json: list, root: 'data', meta: pagination_dict(list)
+  end
 end

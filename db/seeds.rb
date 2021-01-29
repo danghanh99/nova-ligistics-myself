@@ -1,7 +1,7 @@
 # Default User
 User.create_with(
   email: "admin@novahub.vn",
-  password: "123456",
+  password: "Nova@123",
   name: "admin",
   phone: "0905010203",
   address: '10B Nguyen Chi Thanh'
