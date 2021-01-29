@@ -2,6 +2,7 @@ module ExceptionHandler
   include JsonResponseHandler
   extend ActiveSupport::Concern
   class DecodeError < StandardError; end
+
   class ExpiredSignature < StandardError; end
   included do
     rescue_from ExceptionHandler::DecodeError, with: :decode_error
