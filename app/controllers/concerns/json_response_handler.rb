@@ -10,15 +10,6 @@ module JsonResponseHandler
     render_error message, :bad_request
   end
 
-  def render_collection(list, serializer_class = nil)
-    meta = list.respond_to?(:current_page) ? pagination_dict(list) : nil
-    if serializer_class.present?
-      render json: list, root: 'data', meta: meta, each_serializer: serializer_class
-    else
-      render json: list, root: 'data', meta: meta
-    end
-  end
-
   def render_resource(obj, status_code_symbol = :ok, serializer_class = nil)
     serializer_class.nil? ? (render json: obj, status: status_code_symbol) : (render json: { "#{obj.class.to_s.underscore}": serializer_class.new(obj) }, status: status_code_symbol)
   end

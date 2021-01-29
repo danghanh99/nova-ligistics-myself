@@ -3,12 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
-# Create object for Uni-test
-gem 'factory_bot_rails'
-# Create fake data
-gem 'ffaker'
-# Brings convention over configuration to your JSON generation.
-gem 'active_model_serializers'
 # Rack::Cors provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications.
 gem 'rack-cors'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -56,10 +56,6 @@ module ExceptionHandler
     render_error(exception.message, :unprocessable_entity)
   end
 
-  def bad_request(exception)
-    render_bad_request_error(exception.message)
-  end
-
   def invalid_authorization_code
     render_bad_request_error('You seem to have an invalid authorization_code')
   end
