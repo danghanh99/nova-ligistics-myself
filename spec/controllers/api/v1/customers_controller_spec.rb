@@ -137,16 +137,16 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     it 'should return 200' do
       get :index
       expect(response.status).to eq(200)
-      customers = JSON.parse(response.body)
-      expect(customers.size).to eq(Customer.count)
+      response_body = JSON.parse(response.body)
+      expect(response_body['customers'].size).to eq(Customer.count)
 
-      expect(customers.first['id']).to eq(@da_nang.id)
-      expect(customers.first['name']).to eq(@da_nang.name)
-      expect(customers.first['phone_number']).to eq(@da_nang.phone_number)
+      expect(response_body['customers'].first['id']).to eq(@da_nang.id)
+      expect(response_body['customers'].first['name']).to eq(@da_nang.name)
+      expect(response_body['customers'].first['phone_number']).to eq(@da_nang.phone_number)
 
-      expect(customers.second['id']).to eq(@nghe_an.id)
-      expect(customers.second['name']).to eq(@nghe_an.name)
-      expect(customers.second['phone_number']).to eq(@nghe_an.phone_number)
+      expect(response_body['customers'].second['id']).to eq(@nghe_an.id)
+      expect(response_body['customers'].second['name']).to eq(@nghe_an.name)
+      expect(response_body['customers'].second['phone_number']).to eq(@nghe_an.phone_number)
     end
   end
 end

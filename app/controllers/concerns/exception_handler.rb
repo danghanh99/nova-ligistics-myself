@@ -21,6 +21,7 @@ module ExceptionHandler
 
   class InvalidAuthorizationCode < StandardError; end
 
+  class BadRequest < StandardError; end
   included do
     rescue_from ExceptionHandler::BadRequest, with: :bad_request
     rescue_from ExceptionHandler::InvalidAuthorizationCode, with: :invalid_authorization_code
@@ -38,11 +39,6 @@ module ExceptionHandler
       render_error(exception.message, :forbidden)
     end
 
-  class BadRequest < StandardError; end
-  included do
-    rescue_from ExceptionHandler::DecodeError, with: :decode_error
-    rescue_from ExceptionHandler::ExpiredSignature, with: :expired_token
-    rescue_from ExceptionHandler::BadRequest, with: :bad_request
     rescue_from ActiveRecord::RecordNotFound do |e|
       render_error(e.message, :not_found)
     end
