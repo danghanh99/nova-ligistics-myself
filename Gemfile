@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.2'
 
 # Rack::Cors provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications.
 gem 'rack-cors'
@@ -16,7 +16,7 @@ gem 'puma', '~> 5.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -31,15 +31,15 @@ group :development, :test do
   # Adds step-by-step debugging and stack navigation capabilities to pry using byebug.
   gem 'pry-byebug'
   # Brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails'
   # RuboCop is a Ruby static code analyzer and code formatter
   gem 'rubocop'
   # Performance optimization analysis for your projects
   gem 'rubocop-performance', require: false
   # Helps you write more understandable, maintainable Rails-specific tests under Minitest.
-  gem 'shoulda', '~> 3.5'
+  gem 'shoulda'
   # Provides RSpec- and Minitest-compatible one-liners to test common Rails functionality that, if written by hand, would be much longer, more complex, and error-prone.
-  gem 'shoulda-matchers', '~> 2.0'
+  gem 'shoulda-matchers'
 end
 
 group :development do

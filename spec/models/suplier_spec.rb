@@ -23,7 +23,7 @@ RSpec.describe Supplier, type: :model do
       should validate_length_of(:phone).is_at_most(25)
     end
     it { should allow_value(nil).for(:phone) }
-    it { should validate_uniqueness_of(:phone) }
+    it { should validate_uniqueness_of(:phone).case_insensitive }
   end
 
   describe 'address' do
