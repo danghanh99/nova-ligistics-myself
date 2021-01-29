@@ -22,10 +22,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.6.6
+    - name: Set up Ruby 2.7.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6.6
+        ruby-version: 2.7.2
     - name: Install required apt packages and bundler
       run: |
         sudo apt-get -y install libpq-dev
