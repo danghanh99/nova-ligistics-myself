@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
+  include JsonResponseHandler
   include ExceptionHandler
   include Jwt::JwtToken
-  include JsonResponseHandler
   before_action :set_paginate, only: %i[index]
 
   def set_paginate
