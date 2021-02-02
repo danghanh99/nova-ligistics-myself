@@ -4,6 +4,7 @@ module ExceptionHandler
   class DecodeError < StandardError; end
 
   class ExpiredSignature < StandardError; end
+
   class BadRequest < StandardError; end
   included do
     rescue_from ExceptionHandler::DecodeError, with: :decode_error
