@@ -79,8 +79,8 @@ paths:
     post:
       tags:
         - Suppliers
-      summary: Create employee by id
-      description: Returns an employee
+      summary: Create supplier by id
+      description: Returns an supplier
       requestBody:
         required: true
         content:
@@ -95,7 +95,7 @@ paths:
               schema:
                 type: object
                 properties: 
-                  user:
+                  supplier:
                     $ref: '#/components/schemas/Supplier'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -105,13 +105,13 @@ paths:
     get:
       tags:
         - Suppliers
-      summary: Find employee by id
-      description: Returns an employee
-      operationId: getEmployeeById
+      summary: Find supplier by id
+      description: Returns an supplier
+      operationId: getSupplierById
       parameters:
         - name: id
           in: path
-          description: ID of employee to return
+          description: ID of supplier to return
           required: true
           schema:
             type: integer
@@ -125,7 +125,7 @@ paths:
               schema:
                 type: object
                 properties: 
-                  user:
+                  supplier:
                     $ref: '#/components/schemas/Supplier'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -134,12 +134,12 @@ paths:
     patch:
       tags:
         - Suppliers
-      summary: Update employee by id
-      description: Returns an employee
+      summary: Update supplier by id
+      description: Returns an supplier
       parameters:
         - name: id
           in: path
-          description: ID of employee to return
+          description: ID of supplier to return
           required: true
           schema:
             type: integer
@@ -159,7 +159,7 @@ paths:
               schema:
                 type: object
                 properties: 
-                  user:
+                  supplier:
                     $ref: '#/components/schemas/Supplier'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -291,23 +291,31 @@ components:
           example: 'string@string.com'
         name:
           type: string
+          example: 'Novahub@2021'
         phone:
           type: string
+          example: '0908070605'
         address:
           type: string
+          example: '10B nguyen chi thanh'
         description:
           type: string
+          example: 'this is description'
     RequestParamSupplier:
       type: object
       properties:
         name:
           type: string
+          example: 'Novahub@2021'
         phone:
           type: string
+          example: '0908070605'
         address:
           type: string
+          example: '10B nguyen chi thanh'
         description:
           type: string
+          example: 'this is description'
     Pagination:
       type: object
       properties:
