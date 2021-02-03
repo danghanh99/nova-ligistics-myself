@@ -39,6 +39,98 @@ paths:
                     $ref: '#/components/schemas/User'
         400:
           $ref: '#/components/responses/BadRequest'
+  /customers:
+    post:
+      tags:
+      - Customer
+      summary: Create Customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamsCustomer'
+      responses:
+        201:
+          description: created customer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  customer:
+                    $ref: '#/components/schemas/Customer'
+        422:
+          $ref: '#/components/responses/InvalidParams' 
+    get:
+      tags:
+        - Customer
+      summary: Get list Customers
+      description: Returns list Customers
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  customers:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/Customer'
+  '/customers/{id}':
+    parameters:
+      - name: id
+        in: path
+        description: ID of customer to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 1
+    get:
+      tags:
+        - Customer
+      summary: Find Customer by id
+      description: Returns an customer
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  customer:
+                    $ref: '#/components/schemas/Customer'
+        404:
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags:
+      - Customer
+      summary: Update Customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamsCustomer'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  customer:
+                    $ref: '#/components/schemas/Customer'
+        404:
+          $ref: '#/components/responses/NotFound'
+        422:
+          $ref: '#/components/responses/InvalidParams'
   /suppliers:
     get:
       tags:
@@ -316,6 +408,36 @@ components:
         description:
           type: string
           example: 'this is description'
+    RequestParamsCustomer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "novahub"
+        phone_number:
+          type: integer
+          example: "0905010203"
+        address:
+          type: string
+          example: "10B Nguyen Chi Thanh"
+      required:
+        - name
+        - phone
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "novahub"
+        phone_number:
+          type: string
+          example: "012345678"
+        address:
+          type: string
+          example: "10b nguyen chi thanh"
     Pagination:
       type: object
       properties:
