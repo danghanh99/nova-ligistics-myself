@@ -291,7 +291,7 @@ paths:
           in: query
           schema:
             type: string
-            example: 'supplier'
+            example: 'iphone'
         - name: sort
           in: query
           schema:
