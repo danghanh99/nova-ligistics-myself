@@ -1,5 +1,5 @@
 # Default User
-User.create_with(
+admin = User.create_with(
   email: "admin@novahub.vn",
   password: "Nova@123",
   name: "admin",
@@ -8,6 +8,7 @@ User.create_with(
 ).find_or_create_by(email: 'admin@novahub.vn')
 
 # Default Inventory
+
 nova_inventory = Inventory.create_with(
   name: "Novahub 2021",
   address: '10B Nguyen Chi Thanh',
@@ -23,7 +24,7 @@ cty_xnk_an_giang = Supplier.create_with(
 
 rice = Product.find_or_create_by name: 'viet nam rice', description: 'One of the best rice', sku: 'kg'
 
-import_rice = Import.create!(
+import_rice = Import.create_with(
   retail_price: 20_000_000,
   quantity: 100,
   description: '',
@@ -31,5 +32,5 @@ import_rice = Import.create!(
   user_id: admin.id,
   inventory_id: nova_inventory.id,
   supplier_id: cty_xnk_an_giang.id,
-  quantity: 100,
+  product_id: rice.id
 ).find_or_create_by(imported_date: '28-01-2021', supplier_id: cty_xnk_an_giang.id, retail_price: 20_000_000)

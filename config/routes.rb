@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :customers
       post 'login', to: 'sessions#create'
       resources :suppliers, only: %i[index show create update]
+      resources :products, only: %i[index create update show]
     end
   end
 end

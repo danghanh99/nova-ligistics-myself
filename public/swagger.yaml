@@ -257,6 +257,120 @@ paths:
           $ref: '#/components/responses/InvalidParams'
         404:
           $ref: '#/components/responses/NotFound'
+  /products:
+    post:
+      tags:
+      - Product
+      summary: Create Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamsProduct'
+      responses:
+        201:
+          description: created product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  product:
+                    $ref: '#/components/schemas/Product'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      tags:
+        - Product
+      summary: Get all Product
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+            example: 'iphone'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: 'name: desc, created_at: asc'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  data:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/Product'
+                  meta:
+                      $ref: '#/components/schemas/Pagination'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+  '/products/{id}':
+    parameters:
+      - name: id
+        in: path
+        description: ID of product to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 1
+    get:
+      tags:
+        - Product
+      summary: Find product by id
+      description: Returns an product
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  product:
+                    $ref: '#/components/schemas/Product'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      tags:
+      - Product
+      summary: Update Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamsProduct'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  product:
+                    $ref: '#/components/schemas/Product'
+        404:
+          $ref: '#/components/responses/NotFound'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
 components:
   responses:
     RequestSuccess:
@@ -436,6 +550,35 @@ components:
         address:
           type: string
           example: "10b nguyen chi thanh"
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "iphone"
+        sku:
+          type: string
+          example: "item"
+        description:
+          type: string
+          example: ""
+    RequestParamsProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "iphone"
+        sku:
+          type: string
+          example: "item"
+        description:
+          type: string
+          example: "this is description"
+      required:
+        - name
     Pagination:
       type: object
       properties:
