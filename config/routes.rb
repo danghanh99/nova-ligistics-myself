@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :customers
       post 'login', to: 'sessions#create'
-      resources :suppliers, only: %i[index]
+      resources :suppliers, only: %i[index show create update]
     end
   end
 end

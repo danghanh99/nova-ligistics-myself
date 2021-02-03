@@ -39,6 +39,134 @@ paths:
                     $ref: '#/components/schemas/User'
         400:
           $ref: '#/components/responses/BadRequest'
+  /suppliers:
+    get:
+      tags:
+        - Suppliers
+      summary: Get all supllier
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+            example: 'supplier'
+        - name: sort
+          in: query
+          required: true
+          schema:
+            type: string
+            example: ASC
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  data:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/Supplier'
+                  meta:
+                      $ref: '#/components/schemas/Pagination'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+        - Suppliers
+      summary: Create supplier by id
+      description: Returns an supplier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamSupplier'
+      responses:
+        201:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  supplier:
+                    $ref: '#/components/schemas/Supplier'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+  '/suppliers/{id}':
+    get:
+      tags:
+        - Suppliers
+      summary: Find supplier by id
+      description: Returns an supplier
+      operationId: getSupplierById
+      parameters:
+        - name: id
+          in: path
+          description: ID of supplier to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  supplier:
+                    $ref: '#/components/schemas/Supplier'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags:
+        - Suppliers
+      summary: Update supplier by id
+      description: Returns an supplier
+      parameters:
+        - name: id
+          in: path
+          description: ID of supplier to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamSupplier'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  supplier:
+                    $ref: '#/components/schemas/Supplier'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        404:
+          $ref: '#/components/responses/NotFound'
 components:
   responses:
     RequestSuccess:
@@ -152,6 +280,57 @@ components:
           type: string
         address:
           type: string
+    Supplier:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+          example: 'string@string.com'
+        name:
+          type: string
+          example: 'Novahub@2021'
+        phone:
+          type: string
+          example: '0908070605'
+        address:
+          type: string
+          example: '10B nguyen chi thanh'
+        description:
+          type: string
+          example: 'this is description'
+    RequestParamSupplier:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Novahub@2021'
+        phone:
+          type: string
+          example: '0908070605'
+        address:
+          type: string
+          example: '10B nguyen chi thanh'
+        description:
+          type: string
+          example: 'this is description'
+    Pagination:
+      type: object
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 1
+        total_pages:
+          type: integer
+          example: 1
+        total_count:
+          type: integer
+          example: 1
   securitySchemes:
     bearerAuth:
       type: http
