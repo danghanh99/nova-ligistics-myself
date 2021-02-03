@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Api::V1::CustomersController, type: :controller do
   before(:all) do
     Customer.delete_all
+    User.delete_all
+    @user = FactoryBot.create(:user)
     @da_nang = FactoryBot.create(:customer, name: 'tp da nang')
     @nghe_an = FactoryBot.create(:customer, name: 'tp nghe an')
   end
@@ -15,7 +17,19 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     }
   }
   let!(:unexist_customer_id) { { id: 999_999_999_999 } }
+  let!(:valid_token) { Jwt::JwtToken.encode({ user_id: @user.id }) }
+  let!(:valid_headers) { { authorization: "Bearer #{valid_token}" } }
+  let!(:invalid_token) { SecureRandom.hex(64) }
+  let!(:invalid_headers) { { authorization: "Bearer #{invalid_token}" } }
+  before(:each) { request.headers.merge! valid_headers }
+
   describe 'POST#Create Customer' do
+    it 'return status 401 status code with invalid token' do
+      request.headers.merge! invalid_headers
+      post :create, params: customer_params
+      expect(response.status).to eq(401)
+    end
+
     it 'should return 201' do
       post :create, params: customer_params
       expect(response.status).to eq(201)
@@ -117,6 +131,12 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
   describe 'GET#Show Customer' do
+    it 'return status 401 status code with invalid token' do
+      request.headers.merge! invalid_headers
+      post :show, params: { id: @da_nang }
+      expect(response.status).to eq(401)
+    end
+
     it 'should return 200' do
       get :show, params: { id: @da_nang }
       expect(response.status).to eq(200)
@@ -134,6 +154,12 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
   describe 'GET#Index Customer' do
+    it 'return status 401 status code with invalid token' do
+      request.headers.merge! invalid_headers
+      post :index
+      expect(response.status).to eq(401)
+    end
+
     it 'should return 200' do
       get :index
       expect(response.status).to eq(200)

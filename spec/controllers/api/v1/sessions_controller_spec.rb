@@ -2,6 +2,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::SessionsController do
   describe 'Login with email' do
     before(:each) do
+      User.delete_all
       @user = FactoryBot.create(:user)
     end
 

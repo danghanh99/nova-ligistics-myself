@@ -2,7 +2,10 @@ class ApplicationController < ActionController::API
   include JsonResponseHandler
   include ExceptionHandler
   include Jwt::JwtToken
+  include Authenticatable
   before_action :set_paginate, only: %i[index]
+  before_action :authorize_request
+  serialization_scope :view_context
 
   def set_paginate
     @per_page = params[:per_page] || 20
