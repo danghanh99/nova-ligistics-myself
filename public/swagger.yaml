@@ -371,6 +371,56 @@ paths:
           $ref: '#/components/responses/InvalidParams'
         401:
           $ref: '#/components/responses/Unauthorized'
+  /exports:
+    post:
+      tags:
+      - Export
+      summary: Create Export
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamsExport'
+      responses:
+        201:
+          description: created export
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  export:
+                    $ref: '#/components/schemas/Export'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+  /imports:
+    post:
+      tags:
+      - Import
+      summary: Create Import
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestParamsImport'
+      responses:
+        201:
+          description: created import
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  import:
+                    $ref: '#/components/schemas/Import'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
 components:
   responses:
     RequestSuccess:
@@ -579,6 +629,166 @@ components:
           example: "this is description"
       required:
         - name
+    RequestParamsExport:
+      type: object
+      properties:
+        sell_price:
+          type: integer
+          example: 1000
+        quantity:
+          type: integer
+          example: 1000
+        description:
+          type: string
+          example: "this is description"
+        exported_date:
+          type: string
+          example: '2021-12-12'
+        user_id:
+          type: integer
+          example: 1
+        import_id:
+          type: integer
+          example: 1
+        inventory_id:
+          type: integer
+          example: 1
+        customer_id:
+          type: integer
+          example: 1
+      required:
+        - sell_price
+        - quantity
+        - exported_date
+        - user_id
+        - import_id
+        - inventory_id
+        - customer_id
+    Export:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        sell_price:
+          type: integer
+          example: 1000
+        quantity:
+          type: integer
+          example: 1000
+        description:
+          type: string
+          example: "this is description"
+        exported_date:
+          type: string
+          example: '2021-12-12'
+        user:
+          $ref: '#/components/schemas/User'
+        import:
+          type: object
+          properties:
+            inventory_id:
+              type: integer
+              example: 1
+            supplier_id:
+              type: integer
+              example: 1
+            product_id:
+              type: integer
+              example: 1
+            retail_price:
+              type: integer
+              example: 1_000_000
+            quantity:
+              type: integer
+              example: 100
+            imported_date:
+              type: string
+              format: date
+              example: "02-02-2020"
+        inventory:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "Novahub 2021"
+            address:
+              type: string
+              example: "10b nguyen chi thanh"
+        customer:
+          $ref: '#/components/schemas/Customer'
+    RequestParamsImport:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          example: 1
+        supplier_id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          example: 1
+        retail_price:
+          type: integer
+          example: 1_000_000
+        quantity:
+          type: integer
+          example: 100
+        imported_date:
+          type: string
+          format: date
+          example: "02-02-2020"
+        user_id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "this is description"
+      required:
+        - name
+    Import:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        retail_price:
+          type: integer
+          example: 1_000_000
+        quantity:
+          type: integer
+          example: 100
+        description:
+          type: string
+          example: ""
+        imported_date:
+          type: string
+          example: "2020-02-02"
+        created_at:
+          type: string
+          example: "2020-02-02"
+        inventory:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "Novahub 2021"
+            address:
+              type: string
+              example: "10b nguyen chi thanh"
+        supplier:
+          $ref: '#/components/schemas/Supplier'
+        product:
+          $ref: '#/components/schemas/Product'
+        user:
+          $ref: '#/components/schemas/User'
     Pagination:
       type: object
       properties:
