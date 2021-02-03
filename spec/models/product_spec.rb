@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
+  before(:all) do
+    Product.delete_all
+  end
   describe 'name' do
     it { should respond_to(:name) }
     it { should allow_value('pen').for(:name) }
     it { should_not allow_value(' ').for(:name) }
     it { should_not allow_value(nil).for(:name) }
-    it { should_not allow_value('a').for(:name) }
-    it 'should be greater or equal 2 and less than or equal 255' do
-      should validate_length_of(:name).is_at_least(2).is_at_most(255)
-    end
+    it { should allow_value('a').for(:name) }
     it 'should presence' do
       should validate_presence_of(:name)
     end
@@ -28,7 +28,6 @@ RSpec.describe Product, type: :model do
     it { should respond_to(:sku) }
     it { should allow_value(' ').for(:sku) }
     it { should allow_value(nil).for(:sku) }
-    it { should validate_uniqueness_of(:sku) }
   end
 
   describe Product do
