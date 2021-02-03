@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  before(:all) do
-    Product.delete_all
-  end
   describe 'name' do
     it { should respond_to(:name) }
     it { should allow_value('pen').for(:name) }

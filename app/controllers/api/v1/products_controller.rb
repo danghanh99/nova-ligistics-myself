@@ -23,6 +23,14 @@ class Api::V1::ProductsController < ApplicationController
 
   private
 
+  def product_params
+    params.permit(:name, :sku, :description)
+  end
+
+  def find_product
+    @product = Product.find(params[:id])
+  end
+
   def set_query_sort
     @query = SortParams.new(params[:sort], Product).sort_query
   end
