@@ -9,4 +9,8 @@ class Product < ApplicationRecord
     products = products.by_name(params[:name].strip) if params[:name].present?
     products
   end
+
+  def supplier
+    Supplier.where(id: imports.pluck(:supplier_id).uniq)
+  end
 end

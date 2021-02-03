@@ -1,3 +1,3 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :sku, :created_at
+  attributes :id, :name, :description, :sku, :created_at, :supplier
 end
