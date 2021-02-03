@@ -139,13 +139,11 @@ paths:
       parameters:
         - name: name
           in: query
-          required: true
           schema:
             type: string
             example: 'supplier'
         - name: sort
           in: query
-          required: true
           schema:
             type: string
             example: ASC

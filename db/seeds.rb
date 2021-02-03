@@ -28,8 +28,8 @@ import_rice = Import.create!(
   quantity: 100,
   description: '',
   imported_date: '28-01-2021',
-  # user_id: admin.id,
+  user_id: admin.id,
   inventory_id: nova_inventory.id,
-  # supplier_id: cty_xnk_an_giang.id,
+  supplier_id: cty_xnk_an_giang.id,
   quantity: 100,
 ).find_or_create_by(imported_date: '28-01-2021', supplier_id: cty_xnk_an_giang.id, retail_price: 20_000_000)
