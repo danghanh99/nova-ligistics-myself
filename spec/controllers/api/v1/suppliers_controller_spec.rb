@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Api::V1::SuppliersController, type: :controller do
   before(:all) do
     Supplier.delete_all
+    User.delete_all
+    @admin = FactoryBot.create(:user)
     @user = FactoryBot.create(:supplier, phone: '1234567890')
     FactoryBot.create(:supplier, name: 'Le Dang Hanh', phone: '91011')
     FactoryBot.create(:supplier, name: 'Supper admin', phone: '5678')
@@ -18,7 +20,19 @@ RSpec.describe Api::V1::SuppliersController, type: :controller do
     }
   }
   let!(:unexist_supplier_id) { { id: 999_999_999_999 } }
+  let!(:unexist_customer_id) { { id: 999_999_999_999 } }
+  let!(:valid_token) { Jwt::JwtToken.encode({ user_id: @admin.id }) }
+  let!(:valid_headers) { { authorization: "Bearer #{valid_token}" } }
+  let!(:invalid_token) { SecureRandom.hex(64) }
+  let!(:invalid_headers) { { authorization: "Bearer #{invalid_token}" } }
+  before(:each) { request.headers.merge! valid_headers }
   describe 'POST#Create Supplier' do
+    it 'return status 401 status code with invalid token' do
+      request.headers.merge! invalid_headers
+      post :create, params: supplier_params
+      expect(response.status).to eq(401)
+    end
+
     it 'should return 201' do
       post :create, params: supplier_params
       expect(response.status).to eq(201)
@@ -103,6 +117,12 @@ RSpec.describe Api::V1::SuppliersController, type: :controller do
   end
 
   describe 'GET#Show Supplier' do
+    it 'return status 401 status code with invalid token' do
+      request.headers.merge! invalid_headers
+      get :show, params: { id: @supplier.id }
+      expect(response.status).to eq(401)
+    end
+
     it 'should return 200' do
       get :show, params: { id: @user }
       expect(response.status).to eq(200)
