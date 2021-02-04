@@ -5,12 +5,16 @@ class Product < ApplicationRecord
   scope :by_name, ->(name) { where('name LIKE ?', "%#{name}%") }
 
   def self.search(params)
-    products = Product.all
+    products = Product.includes(:imports)
     products = products.by_name(params[:name].strip) if params[:name].present?
     products
   end
 
-  def supplier
+  def suppliers
     Supplier.where(id: imports.pluck(:supplier_id).uniq)
+  end
+
+  def inventory
+    Inventory.where(id: imports.pluck(:inventory_id).uniq)
   end
 end
