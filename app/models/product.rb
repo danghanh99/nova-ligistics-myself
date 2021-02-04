@@ -6,7 +6,7 @@ class Product < ApplicationRecord
 
   def self.search(params)
     products = Product.includes(:imports)
-    products = products.by_name(params[:name].strip) if params[:name].present?
+    products = products.by_name(params[:name].downcase.strip) if params[:name].present?
     products
   end
 
