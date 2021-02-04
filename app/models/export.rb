@@ -12,7 +12,9 @@ class Export < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize
   def self.search(params)
-    exports = Export.includes(:user, :inventory, :import, :customer)
+    exports = Export.where(import_id: Import.select { |import| import.supplier_id == params[:supplier_id].to_i }.pluck(:id).uniq) if params[:supplier_id]
+    exports ||= Export.includes(:user, :inventory, :import, :customer)
+    exports = exports.where(import_id: Import.where(product_id: Product.by_name(params[:product_name]).pluck(:id)).pluck(:id).uniq) if params[:product_name]
     exports = exports.where({ user_id: params[:user_id].presence, import_id: params[:import_id].presence,
                               inventory_id: params[:inventory_id].presence, customer_id: params[:customer_id].presence }.compact)
     exports = exports.to_date(params[:to_date]).from_date(params[:from_date])

@@ -14,7 +14,7 @@ class Product < ApplicationRecord
     Supplier.where(id: imports.pluck(:supplier_id).uniq)
   end
 
-  def inventory
+  def inventories
     Inventory.where(id: imports.pluck(:inventory_id).uniq)
   end
 end
