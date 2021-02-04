@@ -6,7 +6,7 @@ class Product < ApplicationRecord
 
   def self.search(params)
     products = Product.includes(:imports)
-    products = products.by_name(params[:name].strip) if params[:name].present?
+    products = products.by_name(params[:name].downcase.strip) if params[:name].present?
     products
   end
 
@@ -14,7 +14,7 @@ class Product < ApplicationRecord
     Supplier.where(id: imports.pluck(:supplier_id).uniq)
   end
 
-  def inventory
+  def inventories
     Inventory.where(id: imports.pluck(:inventory_id).uniq)
   end
 end

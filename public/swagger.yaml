@@ -396,6 +396,57 @@ paths:
           $ref: '#/components/responses/InvalidParams'
         401:
           $ref: '#/components/responses/Unauthorized'
+    get:
+      tags:
+      - Export
+      summary: Get all Export
+      parameters:
+        - name: supplier_id
+          in: query
+          schema:
+            type: integer
+            example: 1
+        - name: product_name
+          in: query
+          schema:
+            type: string
+            example: 'viet'
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date
+            example: '2020-12-12'
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date
+            example: '2020-12-12'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: 'user_id: desc, created_at: asc'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  data:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/Export'
+                  meta:
+                      $ref: '#/components/schemas/Pagination'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
   /imports:
     post:
       tags:
