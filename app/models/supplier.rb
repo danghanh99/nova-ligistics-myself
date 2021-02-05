@@ -12,7 +12,6 @@ class Supplier < ApplicationRecord
     params = params.compact
     suppliers = Supplier.all
     suppliers = suppliers.by_name(params[:name].strip) if params[:name].present?
-    suppliers = suppliers.order({ created_at: params[:sort].downcase.strip }) if params[:sort].present?
     suppliers
   end
 end

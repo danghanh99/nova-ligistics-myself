@@ -146,7 +146,7 @@ paths:
           in: query
           schema:
             type: string
-            example: ASC
+            example: 'name: ASC, phone: DESC'
       responses:
         200:
           description: successful

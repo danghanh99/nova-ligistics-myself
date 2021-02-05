@@ -1,7 +1,8 @@
 class Api::V1::SuppliersController < ApplicationController
   before_action :find_supplier, only: %i[show update]
   def index
-    suppliers = Supplier.search_by_filters(params) if check_valid_sort_params(params[:sort])
+    set_query_sort if params[:sort].present?
+    suppliers = Supplier.search_by_filters(params).order(@query)
     suppliers = paginate(suppliers)
     render_collection(suppliers)
   end
@@ -22,13 +23,12 @@ class Api::V1::SuppliersController < ApplicationController
 
   private
 
-  def supplier_params
-    params.permit(:name, :phone, :address, :description)
+  def set_query_sort
+    @query = SortParams.new(params[:sort], Supplier).sort_query
   end
 
-  def check_valid_sort_params(sort_type)
-    SortParams.new(sort_type) if sort_type.present?
-    true
+  def supplier_params
+    params.permit(:name, :phone, :address, :description)
   end
 
   def find_supplier
