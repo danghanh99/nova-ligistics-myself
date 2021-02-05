@@ -15,8 +15,10 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def index
-    customers = Customer.all
-    render_resources customers, :ok, CustomerSerializer
+    set_query_sort if params[:sort].present?
+    customers = Customer.search(params).order(@query)
+    customers = paginate(customers)
+    render_collection(customers)
   end
 
   private
@@ -27,5 +29,9 @@ class Api::V1::CustomersController < ApplicationController
 
   def find_customer
     @customer = Customer.find(params[:id])
+  end
+
+  def set_query_sort
+    @query = SortParams.new(params[:sort], Customer).sort_query
   end
 end
