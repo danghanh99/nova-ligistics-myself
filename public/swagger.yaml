@@ -493,6 +493,77 @@ paths:
           $ref: '#/components/responses/InvalidParams'
         401:
           $ref: '#/components/responses/Unauthorized'
+    get:
+      tags:
+      - Import
+      summary: Get all imports
+      parameters:
+        - name: supplier_id
+          in: query
+          schema:
+            type: integer
+            example: 1
+        - name: product_name
+          in: query
+          schema:
+            type: string
+            example: 'iphone'
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date
+            example: '2020-12-12'
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date
+            example: '2020-12-12'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: 'user_id: desc, created_at: asc'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  data:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/Import'
+                  meta:
+                      $ref: '#/components/schemas/Pagination'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+  '/imports/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 1
+    delete:
+      tags:
+        - Import
+      summary: Delete Import by id
+      responses:
+        204:
+          description: successful
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
 components:
   responses:
     RequestSuccess:

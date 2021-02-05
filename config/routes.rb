@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :suppliers, only: %i[index show create update]
       resources :products, only: %i[index create update show]
       resources :exports, only: %i[create index destroy]
-      resources :imports, only: %i[create destroy]
+      resources :imports, only: %i[create destroy index]
     end
   end
 end
