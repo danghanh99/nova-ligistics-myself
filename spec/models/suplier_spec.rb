@@ -62,7 +62,7 @@ RSpec.describe Supplier, type: :model do
       expect(suppliers.count).to eq(2)
     end
 
-    it 'should return total count equal 0 with search by name' do
+    it 'should return total count equal 2 with search by name' do
       params_search[:name] = 'DANG HANH'
       suppliers = Supplier.search_by_filters(params_search)
       expect(suppliers.count).to eq(2)
