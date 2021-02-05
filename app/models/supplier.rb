@@ -11,7 +11,7 @@ class Supplier < ApplicationRecord
   def self.search_by_filters(params)
     params = params.compact
     suppliers = Supplier.all
-    suppliers = suppliers.by_name(params[:name].strip) if params[:name].present?
+    suppliers = suppliers.by_name(params[:name].downcase.strip) if params[:name].present?
     suppliers
   end
 end
