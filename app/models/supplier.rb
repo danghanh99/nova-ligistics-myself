@@ -6,7 +6,7 @@ class Supplier < ApplicationRecord
                     format: { with: VALID_PHONE_NUMBER_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  scope :by_name, ->(name) { where('name LIKE ?', "%#{name}%") }
+  scope :by_name, ->(name) { where('lower(name) LIKE ?', "%#{name}%") }
 
   def self.search_by_filters(params)
     params = params.compact

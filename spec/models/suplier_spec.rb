@@ -65,7 +65,7 @@ RSpec.describe Supplier, type: :model do
     it 'should return total count equal 0 with search by name' do
       params_search[:name] = 'DANG HANH'
       suppliers = Supplier.search_by_filters(params_search)
-      expect(suppliers.count).to eq(0)
+      expect(suppliers.count).to eq(2)
     end
 
     it 'should return total count equal 3 with search by name' do
@@ -101,18 +101,6 @@ RSpec.describe Supplier, type: :model do
       params_sort[:sort] = 'ASC  '
       suppliers = Supplier.search_by_filters(params_sort)
       expect(suppliers.first).to eq(@user)
-    end
-
-    it 'should return list desc by day with params sort' do
-      params_sort[:sort] = 'Desc'
-      suppliers = Supplier.search_by_filters(params_sort)
-      expect(suppliers.first).to eq(@supplier)
-    end
-
-    it 'should return list desc by day with params sort' do
-      params_sort[:sort] = 'DESC  '
-      suppliers = Supplier.search_by_filters(params_sort)
-      expect(suppliers.first).to eq(@supplier)
     end
   end
 end
