@@ -22,6 +22,12 @@ cty_xnk_an_giang = Supplier.create_with(
   description: ''
 ).find_or_create_by(name: 'Công ty CP Xuất Nhập Khẩu An Giang - Angimex')
 
+owt_customer = Customer.create_with(
+  name: "open web technology",
+  address: '64 nguyen luong bang',
+  phone_number: '0123456789'
+).find_or_create_by(name: 'open web technology')
+
 rice = Product.find_or_create_by name: 'viet nam rice', description: 'One of the best rice'
 
 import_rice = Import.create_with(
