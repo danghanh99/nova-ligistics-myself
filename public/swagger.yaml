@@ -752,9 +752,6 @@ components:
         name:
           type: string
           example: "iphone"
-        sku:
-          type: string
-          example: "item"
         description:
           type: string
           example: ""
@@ -764,9 +761,6 @@ components:
         name:
           type: string
           example: "iphone"
-        sku:
-          type: string
-          example: "item"
         description:
           type: string
           example: "this is description"

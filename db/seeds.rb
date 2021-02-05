@@ -22,7 +22,7 @@ cty_xnk_an_giang = Supplier.create_with(
   description: ''
 ).find_or_create_by(name: 'Công ty CP Xuất Nhập Khẩu An Giang - Angimex')
 
-rice = Product.find_or_create_by name: 'viet nam rice', description: 'One of the best rice', sku: 'kg'
+rice = Product.find_or_create_by name: 'viet nam rice', description: 'One of the best rice'
 
 import_rice = Import.create_with(
   retail_price: 20_000_000,

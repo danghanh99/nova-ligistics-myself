@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 2021_01_29_042253) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "sku"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
