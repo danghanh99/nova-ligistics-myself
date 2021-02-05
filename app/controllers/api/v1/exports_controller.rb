@@ -1,4 +1,5 @@
 class Api::V1::ExportsController < ApplicationController
+  before_action :find_export, only: %i[destroy]
   def create
     export = Export.create!(export_params)
     render_resource export, :created, ExportSerializer
@@ -10,7 +11,15 @@ class Api::V1::ExportsController < ApplicationController
     render_collection paginate(exports)
   end
 
+  def destroy
+    @export.destroy
+  end
+
   private
+
+  def find_export
+    @export = Export.find(params[:id])
+  end
 
   def set_query_sort
     @query = SortParams.new(params[:sort], Export).sort_query
