@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
   validates :phone_number, uniqueness: true, presence: true, allow_nil: false, length: { maximum: 25 },
                            format: { with: VALID_PHONE_NUMBER_REGEX }
 
-  scope :by_name, ->(name) { where('name LIKE ?', "%#{name}%") }
+  scope :by_name, ->(name) { where('lower(name) LIKE ?', "%#{name}%") }
 
   def self.search(params)
     customers = Customer.all
