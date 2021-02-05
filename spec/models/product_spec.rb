@@ -21,12 +21,6 @@ RSpec.describe Product, type: :model do
     end
   end
 
-  describe 'sku' do
-    it { should respond_to(:sku) }
-    it { should allow_value(' ').for(:sku) }
-    it { should allow_value(nil).for(:sku) }
-  end
-
   describe Product do
     it { should have_many(:imports) }
   end
