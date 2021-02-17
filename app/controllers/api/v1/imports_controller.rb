@@ -1,7 +1,7 @@
 class Api::V1::ImportsController < ApplicationController
   before_action :find_import, only: %i[destroy]
   def create
-    import = Import.create!(import_params)
+    import = Import.create_import(import_params)
     render_resource import, :created, ImportSerializer
   end
 

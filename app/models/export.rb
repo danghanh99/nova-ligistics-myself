@@ -21,4 +21,12 @@ class Export < ApplicationRecord
     exports.to_sell_price(params[:to_sell_price]).from_sell_price(params[:from_sell_price])
   end
   # rubocop:enable Metrics/AbcSize
+
+  def self.create_export(export)
+    admin = User.create_with(email: 'admin@novahub.vn', password: 'Nova@123', name: 'admin', phone: '0905010203', address: '10B Nguyen Chi Thanh').find_or_create_by(email: 'admin@novahub.vn')
+    nova_inventory = Inventory.create_with(name: 'Novahub 2021', address: '10B Nguyen Chi Thanh', description: 'This is branch 1').find_or_create_by(name: 'Novahub 2021')
+    export[:user_id] = admin.id
+    export[:inventory_id] = nova_inventory.id
+    create!(export)
+  end
 end

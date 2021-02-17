@@ -1,7 +1,7 @@
 class Api::V1::ExportsController < ApplicationController
   before_action :find_export, only: %i[destroy]
   def create
-    export = Export.create!(export_params)
+    export = Export.create_export(export_params)
     render_resource export, :created, ExportSerializer
   end
 
@@ -26,6 +26,6 @@ class Api::V1::ExportsController < ApplicationController
   end
 
   def export_params
-    params.permit(:sell_price, :quantity, :description, :exported_date, :user_id, :import_id, :inventory_id, :customer_id)
+    params.permit(:sell_price, :quantity, :description, :exported_date, :import_id, :customer_id)
   end
 end
