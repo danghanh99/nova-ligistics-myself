@@ -65,8 +65,18 @@ paths:
     get:
       tags:
         - Customer
-      summary: Get list Customers
-      description: Returns list Customers
+      summary: Get all customers
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+            example: 'novahub'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: 'name: desc, created_at: asc'
       responses:
         200:
           description: successful
@@ -75,11 +85,17 @@ paths:
               schema:
                 type: object
                 properties: 
-                  customers:
-                    type: array
-                    items:
-                      type: object
-                      $ref: '#/components/schemas/Customer'
+                  data:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/Customer'
+                  meta:
+                      $ref: '#/components/schemas/Pagination'
+        422:
+          $ref: '#/components/responses/InvalidParams'
+        401:
+          $ref: '#/components/responses/Unauthorized'
   '/customers/{id}':
     parameters:
       - name: id

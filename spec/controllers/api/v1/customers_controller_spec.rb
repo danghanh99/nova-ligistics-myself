@@ -161,18 +161,18 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     end
 
     it 'should return 200' do
-      get :index
+      get :index, params: { name: 'tp', sort: 'name: desc, created_at: asc'}
       expect(response.status).to eq(200)
       response_body = JSON.parse(response.body)
-      expect(response_body['customers'].size).to eq(Customer.count)
+      expect(response_body['data'].size).to eq(Customer.count)
 
-      expect(response_body['customers'].first['id']).to eq(@da_nang.id)
-      expect(response_body['customers'].first['name']).to eq(@da_nang.name)
-      expect(response_body['customers'].first['phone_number']).to eq(@da_nang.phone_number)
+      expect(response_body['data'].first['id']).to eq(@nghe_an.id)
+      expect(response_body['data'].first['name']).to eq(@nghe_an.name)
+      expect(response_body['data'].first['phone_number']).to eq(@nghe_an.phone_number)
 
-      expect(response_body['customers'].second['id']).to eq(@nghe_an.id)
-      expect(response_body['customers'].second['name']).to eq(@nghe_an.name)
-      expect(response_body['customers'].second['phone_number']).to eq(@nghe_an.phone_number)
+      expect(response_body['data'].second['id']).to eq(@da_nang.id)
+      expect(response_body['data'].second['name']).to eq(@da_nang.name)
+      expect(response_body['data'].second['phone_number']).to eq(@da_nang.phone_number)
     end
   end
 end
