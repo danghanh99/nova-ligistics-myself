@@ -10,5 +10,6 @@ class Customer < ApplicationRecord
   def self.search(params)
     customers = Customer.all
     customers = customers.by_name(params[:name].downcase.strip) if params[:name].present?
+    customers
   end
 end
