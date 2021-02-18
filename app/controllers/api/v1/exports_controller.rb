@@ -1,8 +1,14 @@
 class Api::V1::ExportsController < ApplicationController
   before_action :find_export, only: %i[destroy]
   def create
-    export = Export.create_export(export_params)
-    render_resource export, :created, ExportSerializer
+    Export.transaction do
+      export = Export.create_export(export_params)
+      import = Import.find export_params[:import_id]
+      raise(ExceptionHandler::BadRequest, "Quantity of products is not enough, available quantity is #{import.available_quantity}") if export.quantity > import.available_quantity
+      import.available_quantity -= export.quantity
+      import.save!
+      render_resource export, :created, ExportSerializer
+    end
   end
 
   def index

@@ -6,6 +6,7 @@ class Import < ApplicationRecord
   has_many :exports, dependent: :destroy
   validates :retail_price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :available_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   scope :to_date, ->(to) { where('imported_date <= ?', to) if to }
 
@@ -24,7 +25,6 @@ class Import < ApplicationRecord
     imports = imports.to_date(params[:to_date]).from_date(params[:from_date])
     imports.to_retail_price(params[:to_retail_price]).from_retail_price(params[:from_retail_price])
   end
-  # rubocop:enable Metrics/AbcSize
 
   def self.create_import(import)
     admin = User.create_with(email: 'admin@novahub.vn', password: 'Nova@123', name: 'admin', phone: '0905010203', address: '10B Nguyen Chi Thanh').find_or_create_by(email: 'admin@novahub.vn')
@@ -35,10 +35,11 @@ class Import < ApplicationRecord
     Import.valid_ids(import[:inventory_id], import[:supplier_id], import[:product_id], import[:user_id])
     create!(import)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def self.response_default_supplier_id
     nova_supplier = Supplier.create_with(
-      name: "novahub supplier",
+      name: 'novahub supplier',
       phone: '0123456789',
       address: '10b nguyen chi thanh',
       description: ''

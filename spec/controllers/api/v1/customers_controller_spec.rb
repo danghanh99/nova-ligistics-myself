@@ -161,7 +161,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     end
 
     it 'should return 200' do
-      get :index, params: { name: 'tp', sort: 'name: desc, created_at: asc'}
+      get :index, params: { name: 'tp', sort: 'name: desc, created_at: asc' }
       expect(response.status).to eq(200)
       response_body = JSON.parse(response.body)
       expect(response_body['data'].size).to eq(Customer.count)
