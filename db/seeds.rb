@@ -40,3 +40,10 @@ import_rice = Import.create_with(
   supplier_id: cty_xnk_an_giang.id,
   product_id: rice.id
 ).find_or_create_by(imported_date: '28-01-2021', supplier_id: cty_xnk_an_giang.id, retail_price: 20_000_000)
+
+nova_supplier = Supplier.create_with(
+  name: "novahub supplier",
+  phone: '0123456789',
+  address: '10b nguyen chi thanh',
+  description: ''
+).find_or_create_by(name: 'novahub supplier')
