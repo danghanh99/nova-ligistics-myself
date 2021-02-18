@@ -33,6 +33,7 @@ rice = Product.find_or_create_by name: 'viet nam rice', description: 'One of the
 import_rice = Import.create_with(
   retail_price: 20_000_000,
   quantity: 100,
+  available_quantity: 100,
   description: '',
   imported_date: '28-01-2021',
   user_id: admin.id,
