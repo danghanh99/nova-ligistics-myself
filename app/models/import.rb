@@ -1,6 +1,6 @@
 class Import < ApplicationRecord
   belongs_to :user
-  belongs_to :supplier
+  belongs_to :supplier, optional: true
   belongs_to :inventory
   belongs_to :product
   has_many :exports, dependent: :destroy
@@ -29,29 +29,18 @@ class Import < ApplicationRecord
   def self.create_import(import)
     admin = User.create_with(email: 'admin@novahub.vn', password: 'Nova@123', name: 'admin', phone: '0905010203', address: '10B Nguyen Chi Thanh').find_or_create_by(email: 'admin@novahub.vn')
     nova_inventory = Inventory.create_with(name: 'Novahub 2021', address: '10B Nguyen Chi Thanh', description: 'This is branch 1').find_or_create_by(name: 'Novahub 2021')
-    import[:supplier_id] = Import.response_default_supplier_id unless import[:supplier_id].present?
     import[:user_id] = admin.id
     import[:inventory_id] = nova_inventory.id
-    Import.valid_ids(import[:inventory_id], import[:supplier_id], import[:product_id], import[:user_id])
+    Import.valid_ids(import)
     import[:available_quantity] = import[:quantity] if import[:quantity].present?
     create!(import)
   end
   # rubocop:enable Metrics/AbcSize
 
-  def self.response_default_supplier_id
-    nova_supplier = Supplier.create_with(
-      name: 'novahub supplier',
-      phone: '0123456789',
-      address: '10b nguyen chi thanh',
-      description: ''
-    ).find_or_create_by(name: 'novahub supplier')
-    nova_supplier.id
-  end
-
-  def self.valid_ids(inventory_id, supplier_id, product_id, user_id)
-    Inventory.find inventory_id
-    Supplier.find supplier_id
-    Product.find product_id
-    User.find user_id
+  def self.valid_ids(import)
+    Inventory.find import[:inventory_id] if import[:inventory_id].present?
+    Supplier.find import[:supplier_id] if import[:supplier_id].present?
+    Product.find import[:product_id] if import[:product_id].present?
+    User.find import[:user_id] if import[:user_id].present?
   end
 end
