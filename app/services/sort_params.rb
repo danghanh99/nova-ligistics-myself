@@ -3,15 +3,6 @@ class SortParams
 
   SORT_ORDERS = %w[asc desc].freeze
 
-  ACTION_RULES = {
-    'product_name' => 'products.name',
-    'supplier_name' => 'suppliers.name',
-    'inventory_name' => 'inventories.name',
-    'sell_price' => 'exports.sell_price',
-    'quantity' => 'exports.quantity',
-    'exported_date' => 'exports.exported_date'
-  }.freeze
-
   def initialize(sort_params, class_name = nil)
     @sort_query = sort_params.tr(':', ' ')
     if class_name.nil?

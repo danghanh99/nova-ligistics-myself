@@ -13,7 +13,7 @@ class Api::V1::ExportsController < ApplicationController
 
   def index
     set_query_sort if params[:sort].present?
-    exports = Export.left_joins(import: %i[product supplier]).search(params).order(@query)
+    exports = Export.search(params).order(@query)
     render_collection paginate(exports)
   end
 
@@ -28,7 +28,7 @@ class Api::V1::ExportsController < ApplicationController
   end
 
   def set_query_sort
-    @query = SortParams.new(params[:sort]).sort_query
+    @query = SortParams.new(params[:sort], Export).sort_query
   end
 
   def export_params
