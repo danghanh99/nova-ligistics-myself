@@ -2,8 +2,6 @@ class Api::V1::ImportsController < ApplicationController
   before_action :find_import, only: %i[destroy]
   def create
     import = Import.create_import(import_params)
-    import.available_quantity = import.quantity unless import.present?
-    import.save!
     render_resource import, :created, ImportSerializer
   end
 

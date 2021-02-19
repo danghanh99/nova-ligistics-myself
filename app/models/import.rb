@@ -33,6 +33,7 @@ class Import < ApplicationRecord
     import[:user_id] = admin.id
     import[:inventory_id] = nova_inventory.id
     Import.valid_ids(import[:inventory_id], import[:supplier_id], import[:product_id], import[:user_id])
+    import[:available_quantity] = import[:quantity] if import[:quantity].present?
     create!(import)
   end
   # rubocop:enable Metrics/AbcSize
