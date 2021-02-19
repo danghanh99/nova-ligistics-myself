@@ -19,6 +19,7 @@ module JsonResponseHandler
   end
 
   def render_collection(list)
-    render json: list, root: 'data', meta: pagination_dict(list)
+    meta = list.respond_to?(:current_page) ? pagination_dict(list) : nil
+    render json: list, root: 'data', meta: meta
   end
 end
