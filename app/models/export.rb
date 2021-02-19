@@ -2,7 +2,7 @@ class Export < ApplicationRecord
   belongs_to :user
   belongs_to :inventory
   belongs_to :import
-  belongs_to :customer
+  belongs_to :customer, optional: true
   validates :sell_price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   scope :to_date, ->(to) { where('exported_date <= ?', to) if to }
