@@ -44,7 +44,7 @@ class Import < ApplicationRecord
       phone: '0123456789',
       address: '10b nguyen chi thanh',
       description: ''
-    ).find_or_create_by(name: 'novahub supplier')
+    ).find_or_create_by(phone: '0123456789')
     nova_supplier.id
   end
 

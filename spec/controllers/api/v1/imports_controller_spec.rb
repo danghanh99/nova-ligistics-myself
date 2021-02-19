@@ -2,7 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ImportsController, type: :controller do
   before(:all) do
+    Import.delete_all
+    User.delete_all
+    Supplier.delete_all
+    Product.delete_all
     @user = FactoryBot.create(:user)
+    @supplier = FactoryBot.create(:supplier)
+    @product = FactoryBot.create(:product)
   end
 
   let!(:valid_token) { Jwt::JwtToken.encode({ user_id: @user.id }) }
@@ -13,8 +19,8 @@ RSpec.describe Api::V1::ImportsController, type: :controller do
 
   let!(:import_params) {
     {
-      supplier_id: 1,
-      product_id: 1,
+      supplier_id: @supplier.id,
+      product_id: @product.id,
       retail_price: 1_000_000,
       quantity: 100,
       imported_date: '02-02-2020',
@@ -25,53 +31,53 @@ RSpec.describe Api::V1::ImportsController, type: :controller do
   describe 'POST#Create Import' do
     it 'return status 401 status code with invalid token' do
       request.headers.merge! invalid_headers
-      post :create, params: customer_params
+      post :create, params: import_params
       expect(response.status).to eq(401)
     end
 
     it 'should return 201' do
-      post :create, params: customer_params
+      post :create, params: import_params
       expect(response.status).to eq(201)
     end
 
-    it 'should return 422 with too long name' do
-      params = customer_params.dup
-      params[:name] = 'a' * 129
+    it 'should return 201 without supplier_id' do
+      params = import_params.dup.except(:supplier_id)
       post :create, params: params
-      expect(response.status).to eq(422)
-      expect(JSON.parse(response.body)['message']).to include 'Name is too long (maximum is 128 characters)'
+      expect(response.status).to eq(201)
     end
 
-    it 'should return 422 with empty name' do
-      params = customer_params.dup
-      params[:name] = ''
+    it 'should return 404 with product not exits' do
+      params = import_params.dup
+      params[:product_id] = 0
       post :create, params: params
-      expect(response.status).to eq(422)
-      expect(JSON.parse(response.body)['message']).to include "Name can't be blank"
+      expect(response.status).to eq(404)
+      expect(JSON.parse(response.body)['message']).to include "Couldn't find Product with 'id'=#{params[:product_id]}"
     end
 
-    it 'should return 422 invalid phone_number' do
-      params = customer_params.dup
-      params[:phone_number] = 'invalid'
+    it 'should return 422 with quantity < 0' do
+      params = import_params.dup
+      params[:quantity] = -1
       post :create, params: params
       expect(response.status).to eq(422)
-      expect(JSON.parse(response.body)['message']).to include 'Phone number is invalid'
     end
 
-    it 'should return 422 too long phone_number' do
-      params = customer_params.dup
-      params[:phone_number] = '1' * 26
+    it 'should return 422 with retail_price < 0' do
+      params = import_params.dup
+      params[:retail_price] = -1
       post :create, params: params
       expect(response.status).to eq(422)
-      expect(JSON.parse(response.body)['message']).to include 'Phone number is too long (maximum is 25 characters)'
     end
 
-    it 'should return 422 empty address' do
-      params = customer_params.dup
-      params[:address] = ''
+    it 'should return 422 with retail_price not exits' do
+      params = import_params.dup.except(:retail_price)
       post :create, params: params
       expect(response.status).to eq(422)
-      expect(JSON.parse(response.body)['message']).to include "Address can't be blank"
+    end
+
+    it 'should return 422 with quantity not exits' do
+      params = import_params.dup.except(:retail_price)
+      post :create, params: params
+      expect(response.status).to eq(422)
     end
   end
 end
