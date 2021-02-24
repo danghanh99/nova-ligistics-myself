@@ -19,7 +19,7 @@ class Import < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def self.search(params)
     imports = Import.includes(:user, :inventory, :product, :supplier)
-    imports = imports.where(product_id: Product.by_name(params[:product_name]).pluck(:id).uniq) if params[:product_name]
+    imports = imports.where(product_id: Product.by_name(params[:product_name].downcase.strip).pluck(:id).uniq) if params[:product_name]
     imports = imports.where({ user_id: params[:user_id].presence, import_id: params[:import_id].presence,
                               inventory_id: params[:inventory_id].presence, supplier_id: params[:supplier_id].presence }.compact)
     imports = imports.to_date(params[:to_date]).from_date(params[:from_date])

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_101455) do
+ActiveRecord::Schema.define(version: 2021_02_24_083518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2021_02_19_101455) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "exports", "customers"
-  add_foreign_key "exports", "imports"
-  add_foreign_key "imports", "inventories"
-  add_foreign_key "imports", "products"
+  add_foreign_key "exports", "customers", on_delete: :cascade
+  add_foreign_key "exports", "imports", on_delete: :cascade
+  add_foreign_key "imports", "inventories", on_delete: :cascade
+  add_foreign_key "imports", "products", on_delete: :cascade
 end

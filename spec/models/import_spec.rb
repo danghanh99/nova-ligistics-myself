@@ -19,10 +19,11 @@ RSpec.describe Import, type: :model do
     it 'should presence' do
       should validate_presence_of(:quantity)
     end
+    it { should_not allow_value(1.1).for(:quantity) }
   end
 
   describe Import do
-    it { should belong_to(:supplier) }
+    it { should belong_to(:supplier).optional }
     it { should belong_to(:user) }
     it { should belong_to(:inventory) }
     it { should belong_to(:product) }

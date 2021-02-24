@@ -14,7 +14,7 @@ class Export < ApplicationRecord
   def self.search(params)
     exports = Export.where(import_id: Import.select { |import| import.supplier_id == params[:supplier_id].to_i }.pluck(:id).uniq) if params[:supplier_id]
     exports ||= Export.includes(:user, :inventory, :import, :customer)
-    exports = exports.where(import_id: Import.where(product_id: Product.by_name(params[:product_name]).pluck(:id)).pluck(:id).uniq) if params[:product_name]
+    exports = exports.where(import_id: Import.where(product_id: Product.by_name(params[:product_name].downcase.strip).pluck(:id)).pluck(:id).uniq) if params[:product_name]
     exports = exports.where({ user_id: params[:user_id].presence, import_id: params[:import_id].presence,
                               inventory_id: params[:inventory_id].presence, customer_id: params[:customer_id].presence }.compact)
     exports = exports.to_date(params[:to_date]).from_date(params[:from_date])
@@ -27,6 +27,14 @@ class Export < ApplicationRecord
     nova_inventory = Inventory.create_with(name: 'Novahub 2021', address: '10B Nguyen Chi Thanh', description: 'This is branch 1').find_or_create_by(name: 'Novahub 2021')
     export[:user_id] = admin.id
     export[:inventory_id] = nova_inventory.id
+    Export.valid_ids(export)
     create!(export)
+  end
+
+  def self.valid_ids(export)
+    User.find export[:user_id] if export[:user_id].present?
+    Import.find export[:import_id] if export[:import_id].present?
+    Inventory.find export[:inventory_id] if export[:inventory_id].present?
+    Customer.find export[:customer_id] if export[:customer_id].present?
   end
 end

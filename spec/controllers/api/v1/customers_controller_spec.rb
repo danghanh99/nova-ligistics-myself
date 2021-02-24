@@ -156,7 +156,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   describe 'GET#Index Customer' do
     it 'return status 401 status code with invalid token' do
       request.headers.merge! invalid_headers
-      post :index
+      get :index
       expect(response.status).to eq(401)
     end
 

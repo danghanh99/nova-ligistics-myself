@@ -18,7 +18,12 @@ class Api::V1::ExportsController < ApplicationController
   end
 
   def destroy
-    @export.destroy
+    Export.transaction do
+      import = Import.find @export.import_id
+      import.available_quantity += @export.quantity
+      import.save!
+      @export.destroy
+    end
   end
 
   private

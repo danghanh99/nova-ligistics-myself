@@ -25,5 +25,6 @@ RSpec.describe Export, type: :model do
     it { should belong_to(:user) }
     it { should belong_to(:inventory) }
     it { should belong_to(:import) }
+    it { should belong_to(:customer).optional }
   end
 end
