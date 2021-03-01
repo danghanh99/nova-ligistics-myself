@@ -514,11 +514,18 @@ paths:
       - Import
       summary: Get all imports
       parameters:
+        - name: product_id
+          in: query
+          schema:
+            type: integer
+            example: 1
+            nullable: true
         - name: supplier_id
           in: query
           schema:
             type: integer
             example: 1
+            nullable: true
         - name: product_name
           in: query
           schema:
